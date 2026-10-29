@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>caffee - Grade 1 Math & English</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Fredoka, Quicksand, and OpenDyslexic fallback font styling -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@500;700&family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        coffee: {
+                            50: '#FAF6F0',
+                            100: '#F3EBE1',
+                            200: '#E6D5C3',
+                            300: '#D5BC9F',
+                            400: '#C2A17E',
+                            500: '#AD855D',
+                            600: '#8F6643',
+                            700: '#714E32',
+                            800: '#563B25',
+                            900: '#3D2819',
+                        },
+                        cream: '#FFFDF9',
+                        latte: '#EFE5D8',
+                        caramel: '#E09F5A',
+                        matcha: '#8DAA74',
+                        berry: '#D97373',
+                    },
+                    fontFamily: {
+                        fredoka: ['Fredoka', 'sans-serif'],
+                        quicksand: ['Quicksand', 'sans-serif'],
+                        dyslexic: ['Lexend', 'Comic Sans MS', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'game': '0 8px 0px 0px rgba(86, 59, 37, 0.25)',
+                        'game-btn': '0 6px 0px 0px #714E32',
+                        'game-btn-active': '0 2px 0px 0px #714E32',
+                        'node-glow': '0 0 15px rgba(224, 159, 90, 0.6)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #FAF6F0;
+            color: #3D2819;
+            user-select: none;
+            transition: font-family 0.3s ease, letter-spacing 0.3s ease, line-height 0.3s ease;
+        }
+
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Fredoka', cursive;
+        }
+
+        /* --- DYSLEXIC-FRIENDLY ACCESSIBILITY MODE --- */
+        body.dyslexic-mode {
+            font-family: 'Lexend', 'Comic Sans MS', sans-serif !important;
+            letter-spacing: 0.08em !important;
+            word-spacing: 0.18em !important;
+            line-height: 1.8 !important;
+            background-color: #F8F4EC !important;
+        }
+        body.dyslexic-mode h1, 
+        body.dyslexic-mode h2, 
+        body.dyslexic-mode h3, 
+        body.dyslexic-mode h4, 
+        body.dyslexic-mode .font-heading {
+            font-family: 'Lexend', sans-serif !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.06em !important;
+        }
+        body.dyslexic-mode .card-3d, 
+        body.dyslexic-mode .bg-cream {
+            background-color: #FFFFF5 !important;
+            border-color: #563B25 !important;
+        }
+
+        /* Highlight spoken text active state */
+        .speech-active {
+            outline: 3px solid #E09F5A !important;
+            background-color: #FEF3C7 !important;
+            border-radius: 8px;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F3EBE1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C2A17E;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8F6643;
+        }
+
+        /* Animated Bobbing Effect */
+        @keyframes bobbing {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .animate-bob {
+            animation: bobbing 3s ease-in-out infinite;
+        }
+
+        /* Custom Game Card 3D Depth */
+        .card-3d {
+            transition: all 0.2s ease;
+            border-bottom: 6px solid #8F6643;
+        }
+        .card-3d:hover {
+            transform: translateY(-4px);
+            border-bottom-width: 8px;
+        }
+        .card-3d:active {
+            transform: translateY(2px);
+            border-bottom-width: 2px;
+        }
+
+        .btn-game {
+            background-color: #E09F5A;
+            color: white;
+            box-shadow: 0 5px 0 #714E32;
+            transition: all 0.1s ease;
+        }
+        .btn-game:hover {
+            background-color: #EBAC6B;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 0 #714E32;
+        }
+        .btn-game:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #714E32;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-coffee-50 overflow-x-hidden text-coffee-900">
+
+    <!-- TOP HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-coffee-100/95 backdrop-blur-md border-b-4 border-coffee-200 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between gap-2">
+            
+            <!-- LOGO -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="showSection('home')">
+                <div class="w-12 h-12 bg-coffee-500 rounded-2xl flex items-center justify-center text-white text-2xl shadow-game border-2 border-coffee-700 transform -rotate-3 hover:rotate-0 transition-transform">
+                    ☕
+                </div>
+                <div>
+                    <h1 class="text-3xl font-bold tracking-wide text-coffee-800 leading-none">caffee</h1>
+                    <span class="text-xs font-semibold text-coffee-600 tracking-wider uppercase">Grade 1 Learning</span>
+                </div>
+            </div>
+
+            <!-- ACCESSIBILITY & STATS CONTROLS -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                
+                <!-- Voice Mode / Language Selector -->
+                <div class="relative flex items-center bg-coffee-50 rounded-xl border-2 border-coffee-300 p-0.5">
+                    <button id="global-tts-btn" onclick="toggleGlobalTTS()" title="Voice Over Speech" class="flex items-center gap-1.5 px-2.5 py-1 text-coffee-800 font-heading text-xs font-bold transition hover:bg-coffee-200 rounded-lg">
+                        <i id="tts-icon" class="fa-solid fa-volume-high text-caramel text-sm"></i>
+                        <span class="hidden sm:inline">Voice</span>
+                    </button>
+                    <select id="voice-mode-select" onchange="changeVoiceMode(this.value)" class="bg-transparent text-xs font-heading font-bold text-coffee-800 cursor-pointer focus:outline-none pr-1 py-1">
+                        <option value="auto">🇵🇭 Auto Voice</option>
+                        <option value="system">🌐 System Voice</option>
+                    </select>
+                </div>
+
+                <!-- Dyslexic Friendly Mode Switch -->
+                <button onclick="toggleDyslexicMode()" id="dyslexic-toggle-btn" title="Toggle Dyslexic-Friendly Font & Layout" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border-2 border-coffee-400 bg-coffee-200 hover:bg-coffee-300 text-coffee-900 font-heading text-xs font-bold transition shadow-sm">
+                    <i class="fa-solid fa-eye text-coffee-700"></i>
+                    <span class="hidden sm:inline">Dyslexic Font</span>
+                </button>
+
+                <!-- Stars Counter -->
+                <div class="flex items-center gap-1.5 bg-coffee-50 px-3 py-1.5 rounded-full border-2 border-coffee-300 shadow-inner">
+                    <span class="text-amber-500 text-xl animate-pulse">⭐</span>
+                    <span id="global-stars" class="font-heading font-bold text-coffee-800 text-lg">0</span>
+                </div>
+
+                <!-- Mobile Menu Toggle Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 bg-coffee-200 rounded-xl flex items-center justify-center text-coffee-800 border-2 border-coffee-400">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- DESKTOP SUB NAV BAR -->
+        <div class="hidden md:flex justify-center border-t border-coffee-200 py-1.5 bg-coffee-100/50">
+            <nav class="flex items-center gap-3 font-heading font-semibold text-coffee-700 text-sm">
+                <button onclick="showSection('home')" class="nav-btn px-4 py-1.5 rounded-xl hover:bg-coffee-200 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-house text-coffee-600"></i> Home
+                </button>
+                <button onclick="showSection('learning-path')" class="nav-btn px-4 py-1.5 rounded-xl hover:bg-coffee-200 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-map-location-dot text-coffee-600"></i> Daanan ng Pagkakatuto
+                </button>
+                <button onclick="showSection('badges')" class="nav-btn px-4 py-1.5 rounded-xl hover:bg-coffee-200 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-award text-coffee-600"></i> Mga Karangalan
+                </button>
+                <button onclick="showSection('parent-info')" class="nav-btn px-4 py-1.5 rounded-xl hover:bg-coffee-200 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-user-group text-coffee-600"></i> Para sa Magulang at Guro
+                </button>
+            </nav>
+        </div>
+
+        <!-- MOBILE NAV MENU -->
+        <div id="mobile-menu" class="hidden md:hidden bg-coffee-100 border-t-2 border-coffee-200 px-4 py-3 space-y-2">
+            <button onclick="showSection('home'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-coffee-200 font-heading text-coffee-800 flex items-center gap-3">
+                <i class="fa-solid fa-house w-6 text-coffee-600"></i> Tahanan
+            </button>
+            <button onclick="showSection('learning-path'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-coffee-200 font-heading text-coffee-800 flex items-center gap-3">
+                <i class="fa-solid fa-map-location-dot w-6 text-coffee-600"></i> Daanan ng Pagkakatuto
+            </button>
+            <button onclick="showSection('badges'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-coffee-200 font-heading text-coffee-800 flex items-center gap-3">
+                <i class="fa-solid fa-award w-6 text-coffee-600"></i> Mga Karangalan at Bituin
+            </button>
+            <button onclick="showSection('parent-info'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-coffee-200 font-heading text-coffee-800 flex items-center gap-3">
+                <i class="fa-solid fa-user-group w-6 text-coffee-600"></i> Para sa Magulang at Guro
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow max-w-6xl w-full mx-auto p-4 sm:p-6">
+
+        <!-- SECTION 1: HOME PAGE -->
+        <section id="sec-home" class="space-y-8 animate-fadeIn">
+            <!-- Hero Banner -->
+            <div class="relative bg-gradient-to-br from-coffee-200 via-latte to-coffee-100 rounded-3xl p-6 sm:p-10 border-4 border-coffee-300 shadow-xl overflow-hidden">
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <h1 id="hero-heading" class="text-3xl sm:text-5xl font-bold text-coffee-900 leading-tight">
+                            Maligayang Pagdating sa <span class="text-coffee-600 underline decoration-wavy decoration-caramel">caffee</span>!
+                        </h1>
+                        <button onclick="speakText('Maligayang Pagdating sa caffee! Masaya at maayos na pag-aaral para sa mga mag-aaral sa Unang Baitang sa Pilipinas.', 'hero-heading')" class="w-10 h-10 bg-coffee-300 hover:bg-coffee-400 text-coffee-900 rounded-full flex items-center justify-center shrink-0 border border-coffee-500 shadow" title="Pakinggan ang Boses">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                    </div>
+
+                    <p class="text-lg text-coffee-700 font-medium leading-relaxed">
+                        Isang masaya, payapa, at madaling gamiting aralan para sa mga batang Pilipino sa Unang Baitang. Kumpletuhin ang mga aralin sa Matematika at Wikang Filipino gamit ang boses sa pagbasa!
+                    </p>
+
+                    <div class="pt-4 flex flex-wrap gap-4">
+                        <button onclick="showSection('learning-path')" class="btn-game px-8 py-4 rounded-2xl font-heading text-xl font-bold flex items-center gap-3">
+                            <i class="fa-solid fa-play"></i> Simulan ang Pag-aaral
+                        </button>
+                        <button onclick="showSection('badges')" class="bg-coffee-200 text-coffee-800 hover:bg-coffee-300 border-2 border-coffee-400 px-6 py-4 rounded-2xl font-heading text-lg font-bold transition flex items-center gap-2">
+                            <i class="fa-solid fa-star text-amber-500"></i> Tingnan ang Aking mga Bituin
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject Cards Overview -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Math Card -->
+                <div class="bg-cream rounded-3xl p-6 border-4 border-coffee-300 shadow-game card-3d flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-14 h-14 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center text-3xl font-bold border-2 border-amber-300">
+                                🧮
+                            </div>
+                            <span class="bg-coffee-100 text-coffee-700 text-xs font-bold px-3 py-1 rounded-full border border-coffee-300">7 Buong Aralin sa Matematika</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <h2 class="text-2xl font-bold text-coffee-800 mb-2">Matematika</h2>
+                            <button onclick="speakText('Matematika. Pagbibilang, Pagdaragdag, Pagbabawas, Pera ng Pilipinas, Pagbasa ng Oras, at Paghahambing ng Numero.')" class="text-coffee-600 hover:text-coffee-800 p-1" title="Basahin">
+                                <i class="fa-solid fa-volume-high"></i>
+                            </button>
+                        </div>
+                        <p class="text-coffee-600 mb-4 text-sm leading-relaxed">
+                            Matutunan ang mga paksa sa Unang Baitang gamit ang mga dyipni, mangga, barya ng Pilipinas, oras, at mga hugis!
+                        </p>
+                        <ul class="text-xs sm:text-sm space-y-1.5 text-coffee-700 font-medium mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-matcha"></i> Pagbibilang (1 hanggang 10)</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-matcha"></i> Pagdaragdag (Hanggang 10)</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-matcha"></i> Mga Hugis at Padron</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-matcha"></i> Pagbabawas (10 at 20)</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-matcha"></i> Pera ng Pilipinas (₱1, ₱5, ₱10, ₱20)</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-matcha"></i> Pagbasa ng Oras</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-matcha"></i> Paghahambing ng Numero</li>
+                        </ul>
+                    </div>
+                    <button onclick="switchSubjectPath('math')" class="w-full py-3 bg-coffee-600 hover:bg-coffee-700 text-white font-heading font-bold rounded-xl transition text-center shadow-md">
+                        Tingnan ang Matematika (7 Aralin) <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+
+                <!-- Filipino Card -->
+                <div class="bg-cream rounded-3xl p-6 border-4 border-coffee-300 shadow-game card-3d flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-14 h-14 bg-blue-100 text-blue-700 rounded-2xl flex items-center justify-center text-3xl font-bold border-2 border-blue-300">
+                                📚
+                            </div>
+                            <span class="bg-coffee-100 text-coffee-700 text-xs font-bold px-3 py-1 rounded-full border border-coffee-300">7 Buong Aralin sa Wikang Filipino</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <h2 class="text-2xl font-bold text-coffee-800 mb-2">Wikang Filipino</h2>
+                            <button onclick="speakText('Wikang Filipino. Tunog ng Letra A hanggang Z, Salitang Madalas Basahin, Pangngalan at Pandiwa, Maikling Salita, Isa at Marami, at Magalang na Pagbati.')" class="text-coffee-600 hover:text-coffee-800 p-1" title="Basahin">
+                                <i class="fa-solid fa-volume-high"></i>
+                            </button>
+                        </div>
+                        <p class="text-coffee-600 mb-4 text-sm leading-relaxed">
+                            Patibayin ang kakayahan sa pagbasa gamit ang tunog ng mga letra, salitang madalas gamitin, at magalang na pagbati!
+                        </p>
+                        <ul class="text-xs sm:text-sm space-y-1.5 text-coffee-700 font-medium mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-matcha"></i> Tunog ng mga Letra (A hanggang Z)</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-matcha"></i> Mga Salitang Madalas Basahin</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-matcha"></i> Pangngalan at Pandiwa</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-matcha"></i> Pagbasa ng Maikling Salita</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-matcha"></i> Isa at Maraming Bagay</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-matcha"></i> Payak na Pangungusap</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-matcha"></i> Magalang na Pagbati</li>
+                        </ul>
+                    </div>
+                    <button onclick="switchSubjectPath('filipino')" class="w-full py-3 bg-coffee-600 hover:bg-coffee-700 text-white font-heading font-bold rounded-xl transition text-center shadow-md">
+                        Tingnan ang Wikang Filipino (7 Aralin) <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: LEARNING PATH (CORE FEATURE) -->
+        <section id="sec-learning-path" class="hidden space-y-6 animate-fadeIn">
+            <!-- Header with Subject Selector -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-cream p-4 sm:p-6 rounded-3xl border-4 border-coffee-300 shadow-md">
+                <div>
+                    <h2 class="text-3xl font-bold text-coffee-900">Daanan ng Pagkakatuto</h2>
+                    <p class="text-sm text-coffee-600">Pumili ng Aralin para magsimula</p>
+                </div>
+
+                <!-- Subject Tabs -->
+                <div class="flex bg-coffee-100 p-1.5 rounded-2xl border-2 border-coffee-300 self-start md:self-auto">
+                    <button id="tab-math" onclick="switchSubjectPath('math')" class="px-5 py-2 rounded-xl font-heading font-bold text-base transition bg-coffee-500 text-white shadow">
+                        🧮 Matematika
+                    </button>
+                    <button id="tab-filipino" onclick="switchSubjectPath('filipino')" class="px-5 py-2 rounded-xl font-heading font-bold text-base transition text-coffee-700 hover:bg-coffee-200">
+                        📚 Wikang Filipino
+                    </button>
+                </div>
+            </div>
+
+            <!-- LEARNING MAP CONTAINER -->
+            <div class="relative bg-gradient-to-b from-coffee-100 via-latte to-coffee-200 rounded-3xl p-6 sm:p-12 border-4 border-coffee-300 shadow-xl min-h-[600px] flex flex-col items-center justify-center overflow-hidden">
+                <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#8F6643_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+
+                <div id="path-header-banner" class="mb-8 text-center max-w-lg bg-cream/90 backdrop-blur px-6 py-2.5 rounded-full border-2 border-coffee-300 shadow-sm z-10 flex items-center justify-center gap-3">
+                    <span id="path-title" class="font-heading font-bold text-coffee-800 text-lg">Daanan ng Pagkakatuto sa Matematika</span>
+                    <button onclick="speakText(document.getElementById('path-title').innerText)" class="text-coffee-600 hover:text-coffee-800" title="Pakinggan ang pamagat">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                </div>
+
+                <!-- NODES MAP (DYNAMIC) -->
+                <div id="nodes-wrapper" class="relative w-full max-w-lg py-4 flex flex-col items-center space-y-16 z-10">
+                    <!-- Dynamic level nodes generated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: BADGES / PROGRESS -->
+        <section id="sec-badges" class="hidden space-y-6 animate-fadeIn">
+            <div class="bg-cream rounded-3xl p-6 border-4 border-coffee-300 shadow-md flex items-center justify-between">
+                <div>
+                    <h2 class="text-3xl font-bold text-coffee-900 mb-1">Mga Karangalan</h2>
+                    <p class="text-sm text-coffee-600">Makatanggap ng mga bituin sa pagtatapos ng mga aralin sa Matematika at Wikang Filipino!</p>
+                </div>
+                <button onclick="speakText('Mga Karangalan. Makatanggap ng mga bituin sa pagtatapos ng mga aralin sa Matematika at Wikang Filipino!')" class="w-10 h-10 bg-coffee-200 hover:bg-coffee-300 rounded-full flex items-center justify-center text-coffee-800 border border-coffee-400">
+                    <i class="fa-solid fa-volume-high"></i>
+                </button>
+            </div>
+
+            <!-- Badges Grid -->
+            <div id="badges-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <!-- Badges dynamically rendered here -->
+            </div>
+        </section>
+
+        <!-- SECTION 4: PARENT / TEACHER INFO -->
+        <section id="sec-parent-info" class="hidden space-y-6 animate-fadeIn">
+            <div class="bg-cream rounded-3xl p-6 sm:p-8 border-4 border-coffee-300 shadow-md space-y-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <span class="bg-coffee-200 text-coffee-800 text-xs font-bold px-3 py-1 rounded-full border border-coffee-300">Para sa Magulang at Guro</span>
+                        <h2 class="text-3xl font-bold text-coffee-900 mt-2">Gabay para sa Magulang at Guro</h2>
+                        <p class="text-coffee-600 text-sm mt-1">Impormasyon kung paano nakahanay ang caffee sa Kurikulum ng DepEd K-12 para sa Unang Baitang.</p>
+                    </div>
+                    <button onclick="speakText('Gabay para sa Magulang at Guro. Ang caffee ay gawa gamit ang letrang malinaw at boses sa pagbasa.')" class="w-10 h-10 bg-coffee-200 hover:bg-coffee-300 rounded-full flex items-center justify-center text-coffee-800 border border-coffee-400">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-coffee-50 p-5 rounded-2xl border-2 border-coffee-200 space-y-3">
+                        <div class="flex items-center gap-3 text-coffee-800 font-heading text-lg font-bold">
+                            <div class="w-9 h-9 bg-caramel/20 rounded-xl flex items-center justify-center text-caramel">🇵🇭</div>
+                            Kontekstong Pilipino
+                        </div>
+                        <p class="text-xs sm:text-sm text-coffee-700 leading-relaxed">
+                            Gumagamit ng mga pamilyar na simbolo tulad ng dyipni, mangga, at barya ng Pilipinas (₱1, ₱5, ₱10, ₱20) para maging mas madali at masaya ang pag-aaral.
+                        </p>
+                    </div>
+
+                    <div class="bg-coffee-50 p-5 rounded-2xl border-2 border-coffee-200 space-y-3">
+                        <div class="flex items-center gap-3 text-coffee-800 font-heading text-lg font-bold">
+                            <div class="w-9 h-9 bg-matcha/20 rounded-xl flex items-center justify-center text-matcha">👁️</div>
+                            Letrang Malinaw (Dyslexic Font)
+                        </div>
+                        <p class="text-xs sm:text-sm text-coffee-700 leading-relaxed">
+                            Mayroong nakatalagang pindutan para sa <strong>Letrang Malinaw</strong> na nagpapalit ng teksto sa mas madaling basahing estilo na may mas malaking agwat ng mga letra.
+                        </p>
+                    </div>
+
+                    <div class="bg-coffee-50 p-5 rounded-2xl border-2 border-coffee-200 space-y-3">
+                        <div class="flex items-center gap-3 text-coffee-800 font-heading text-lg font-bold">
+                            <div class="w-9 h-9 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600">🔊</div>
+                            Boses sa Pagbasa
+                        </div>
+                        <p class="text-xs sm:text-sm text-coffee-700 leading-relaxed">
+                            Bawat tanong, pagpipilian, at salita ay mayroong pindutan ng boses upang madaling mapakinggan at masundan ng mga batang nag-aaral magbasa.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- INTERACTIVE QUIZ / LESSON MODAL CONTAINER -->
+    <div id="quiz-modal" class="fixed inset-0 z-50 bg-coffee-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-cream border-4 border-coffee-400 rounded-3xl max-w-lg w-full p-6 shadow-2xl relative animate-bob max-h-[90vh] overflow-y-auto">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between pb-4 border-b-2 border-coffee-200 mb-4">
+                <div>
+                    <span id="quiz-subject-badge" class="bg-caramel text-white text-xs font-bold px-2.5 py-0.5 rounded-full uppercase">MATEMATIKA</span>
+                    <h3 id="quiz-title" class="text-2xl font-bold text-coffee-900 mt-1">Gawain sa Aralin</h3>
+                </div>
+                <button onclick="closeQuizModal()" class="w-10 h-10 bg-coffee-200 hover:bg-coffee-300 text-coffee-800 rounded-full flex items-center justify-center font-bold text-xl border-2 border-coffee-400 transition">
+                    ✕
+                </button>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div id="quiz-body" class="space-y-6">
+                <!-- Activity Question Content Rendered Here -->
+            </div>
+
+            <!-- Modal Footer -->
+            <div id="quiz-footer" class="mt-6 pt-4 border-t-2 border-coffee-200 flex items-center justify-between">
+                <span id="quiz-feedback" class="text-base font-bold"></span>
+                <button id="quiz-action-btn" class="btn-game px-6 py-2.5 rounded-xl font-heading font-bold text-base hidden">
+                    Susunod na Tanong <i class="fa-solid fa-arrow-right ml-1"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT APP LOGIC -->
+    <script>
+        // --- APP STATE ---
+        let currentSubject = 'math';
+        let userStars = 0;
+        let dyslexicModeActive = false;
+        let ttsEnabled = true;
+        let voiceMode = 'auto'; // 'auto', 'system'
+
+        let completedLessons = {
+            math: [],
+            filipino: []
+        };
+
+        // --- EXPANDED LESSON DATA (ALL MATH & FILIPINO TOPICS) ---
+        const lessonsData = {
+            math: [
+                {
+                    id: 'm1',
+                    title: 'Pagbibilang (1 hanggang 10)',
+                    sub: 'Mga Dyipni at Mangga',
+                    icon: '🚍',
+                    questions: [
+                        {
+                            type: 'count',
+                            question: 'Ilang dyipni ang nakikita mo?',
+                            items: ['🚍', '🚍', '🚍', '🚍'],
+                            options: ['3', '4', '5', '6'],
+                            answer: '4'
+                        },
+                        {
+                            type: 'count',
+                            question: 'Ilang masarap na mangga ito?',
+                            items: ['mangga', 'mangga', 'mangga', 'mangga', 'mangga', 'mangga'],
+                            itemEmojis: ['🥭', '🥭', '🥭', '🥭', '🥭', '🥭'],
+                            options: ['4', '5', '6', '7'],
+                            answer: '6'
+                        },
+                        {
+                            type: 'count',
+                            question: 'Ilang bagon ng tren ang nakikita mo?',
+                            items: ['🚃', '🚃', '🚃'],
+                            options: ['2', '3', '4', '5'],
+                            answer: '3'
+                        },
+                        {
+                            type: 'count',
+                            question: 'Ilang masasarap na saging ito?',
+                            items: ['🍌', '🍌', '🍌', '🍌', '🍌', '🍌', '🍌'],
+                            options: ['5', '6', '7', '8'],
+                            answer: '7'
+                        },
+                        {
+                            type: 'count',
+                            question: 'Ilang bituin ang nasa langit?',
+                            items: ['⭐️', '⭐️', '⭐️', '⭐️', '⭐️'],
+                            options: ['4', '5', '6', '7'],
+                            answer: '5'
+                        },
+                        {
+                            type: 'count',
+                            question: 'Ilang pulang mansanas ang narito?',
+                            items: ['🍎', '🍎'],
+                            options: ['1', '2', '3', '4'],
+                            answer: '2'
+                        },
+                        {
+                            type: 'count',
+                            question: 'Ilang lapis ang gagamitin sa pagsulat?',
+                            items: ['✏️', '✏️', '✏️', '✏️', '✏️', '✏️', '✏️', '✏️'],
+                            options: ['6', '7', '8', '9'],
+                            answer: '8'
+                        },
+                        {
+                            type: 'count',
+                            question: 'Ilang cute na pusa ito?',
+                            items: ['🐱'],
+                            options: ['1', '2', '3', '0'],
+                            answer: '1'
+                        }
+                    ]
+                },
+                {
+                    id: 'm2',
+                    title: 'Pagdaragdag (Hanggang 10)',
+                    sub: 'Pagsasama ng mga Bagay',
+                    icon: '➕',
+                    questions: [
+                        {
+                            type: 'addition',
+                            question: 'Ilan lahat kapag pinagsama? (2 + 3)',
+                            visual: '⭐️ ⭐️  +  ⭐️ ⭐️ ⭐️',
+                            options: ['4', '5', '6', '7'],
+                            answer: '5'
+                        },
+                        {
+                            type: 'addition',
+                            question: 'Ilan ang 4 dagdagan ng 2?',
+                            visual: '🍎 🍎 🍎 🍎  +  🍎 🍎',
+                            options: ['5', '6', '7', '8'],
+                            answer: '6'
+                        },
+                        {
+                            type: 'addition',
+                            question: 'Ilan ang 1 dagdagan ng 1?',
+                            visual: '🐱  +  🐱',
+                            options: ['1', '2', '3', '4'],
+                            answer: '2'
+                        },
+                        {
+                            type: 'addition',
+                            question: 'Ilan ang 3 dagdagan ng 3?',
+                            visual: '🎈 🎈 🎈  +  🎈 🎈 🎈',
+                            options: ['5', '6', '7', '8'],
+                            answer: '6'
+                        },
+                        {
+                            type: 'addition',
+                            question: 'Ilan ang 5 dagdagan ng 2?',
+                            visual: '🍌 🍌 🍌 🍌 🍌  +  🍌 🍌',
+                            options: ['6', '7', '8', '9'],
+                            answer: '7'
+                        },
+                        {
+                            type: 'addition',
+                            question: 'Ilan ang 4 dagdagan ng 4?',
+                            visual: '⚽️ ⚽️ ⚽️ ⚽️  +  ⚽️ ⚽️ ⚽️ ⚽️',
+                            options: ['6', '7', '8', '9'],
+                            answer: '8'
+                        },
+                        {
+                            type: 'addition',
+                            question: 'Ilan ang 6 dagdagan ng 3?',
+                            visual: '🥭 🥭 🥭 🥭 🥭 🥭  +  🥭 🥭 🥭',
+                            options: ['7', '8', '9', '10'],
+                            answer: '9'
+                        },
+                        {
+                            type: 'addition',
+                            question: 'Ilan ang 5 dagdagan ng 5?',
+                            visual: '🖐️  +  🖐️',
+                            options: ['8', '9', '10', '7'],
+                            answer: '10'
+                        }
+                    ]
+                },
+                {
+                    id: 'm3',
+                    title: 'Mga Hugis at Padron',
+                    sub: 'Mga Hugis sa Paligid',
+                    icon: '🔺',
+                    questions: [
+                        {
+                            type: 'shape',
+                            question: 'Alin sa mga ito ang Bilog?',
+                            options: ['Parihaba', 'Bilog', 'Tatsulok'],
+                            answer: 'Bilog'
+                        },
+                        {
+                            type: 'shape',
+                            question: 'Ano ang hugis ng isang salakot?',
+                            options: ['Tatsulok', 'Parihaba', 'Bilog'],
+                            answer: 'Tatsulok'
+                        },
+                        {
+                            type: 'shape',
+                            question: 'Ano ang hugis ng pinto?',
+                            options: ['Parihaba', 'Bilog', 'Tatsulok'],
+                            answer: 'Parihaba'
+                        },
+                        {
+                            type: 'shape',
+                            question: 'Ano ang hugis ng gulong ng dyipni?',
+                            options: ['Bilog', 'Tatsulok', 'Paresukat'],
+                            answer: 'Bilog'
+                        },
+                        {
+                            type: 'shape',
+                            question: 'Ilang sulok o kanto mayroon ang isang Tatsulok?',
+                            options: ['3', '4', '5', '0'],
+                            answer: '3'
+                        },
+                        {
+                            type: 'shape',
+                            question: 'Ano ang susunod sa padron? 🔴 🔵 🔴 🔵 ___?',
+                            options: ['🔴', '🔵', '🟢'],
+                            answer: '🔴'
+                        },
+                        {
+                            type: 'shape',
+                            question: 'Ano ang susunod sa padron? ⭐️ ☀️ ⭐️ ☀️ ___?',
+                            options: ['⭐️', '☀️', '🌙'],
+                            answer: '⭐️'
+                        },
+                        {
+                            type: 'shape',
+                            question: 'Ano ang hugis ng isang panyo na pareho ang apat na gilid?',
+                            options: ['Paresukat', 'Bilog', 'Tatsulok'],
+                            answer: 'Paresukat'
+                        }
+                    ]
+                },
+                {
+                    id: 'm4',
+                    title: 'Pagbabawas (10 at 20)',
+                    sub: 'Pag-aalis ng mga Bagay',
+                    icon: '➖',
+                    questions: [
+                        {
+                            type: 'subtraction',
+                            question: 'May 5 na saging. Kinain ang 2. Ilan ang natira? (5 - 2)',
+                            visual: '🍌 🍌 🍌 ❌ ❌',
+                            options: ['2', '3', '4', '5'],
+                            answer: '3'
+                        },
+                        {
+                            type: 'subtraction',
+                            question: 'Ano ang 10 bawasan ng 4? (10 - 4)',
+                            visual: '🎈 🎈 🎈 🎈 🎈 🎈 ❌ ❌ ❌ ❌',
+                            options: ['4', '5', '6', '7'],
+                            answer: '6'
+                        },
+                        {
+                            type: 'subtraction',
+                            question: 'May 4 na isda. Lumangoy ang 1. Ilan ang natira?',
+                            visual: '🐟 🐟 🐟 ❌',
+                            options: ['2', '3', '4', '1'],
+                            answer: '3'
+                        },
+                        {
+                            type: 'subtraction',
+                            question: 'Ano ang 8 bawasan ng 3? (8 - 3)',
+                            visual: '🍎 🍎 🍎 🍎 🍎 ❌ ❌ ❌',
+                            options: ['4', '5', '6', '7'],
+                            answer: '5'
+                        },
+                        {
+                            type: 'subtraction',
+                            question: 'May 6 na bola. Nawala ang 2. Ilan ang natira?',
+                            visual: '⚽️ ⚽️ ⚽️ ⚽️ ❌ ❌',
+                            options: ['3', '4', '5', '2'],
+                            answer: '4'
+                        },
+                        {
+                            type: 'subtraction',
+                            question: 'Ano ang 7 bawasan ng 7? (7 - 7)',
+                            options: ['0', '1', '7', '14'],
+                            answer: '0'
+                        },
+                        {
+                            type: 'subtraction',
+                            question: 'Ano ang 9 bawasan ng 1? (9 - 1)',
+                            options: ['7', '8', '9', '10'],
+                            answer: '8'
+                        },
+                        {
+                            type: 'subtraction',
+                            question: 'May 10 mangga. Ibinigay ang 5. Ilan ang natira sa iyo?',
+                            options: ['3', '4', '5', '6'],
+                            answer: '5'
+                        }
+                    ]
+                },
+                {
+                    id: 'm5',
+                    title: 'Pera ng Pilipinas',
+                    sub: 'Mga Barya na ₱1, ₱5, ₱10, at ₱20',
+                    icon: '🪙',
+                    questions: [
+                        {
+                            type: 'money',
+                            question: 'Magkano ang perang barya na ito?',
+                            visual: '🪙 ₱5 (Limang Piso)',
+                            options: ['₱1', '₱5', '₱10', '₱20'],
+                            answer: '₱5'
+                        },
+                        {
+                            type: 'money',
+                            question: 'Ilang ₱10 barya ang kailangan para maging ₱20?',
+                            visual: '🪙 ₱10 + ❓ = 🪙 ₱20',
+                            options: ['1', '2', '3', '4'],
+                            answer: '2'
+                        },
+                        {
+                            type: 'money',
+                            question: 'Ano ang simbolo ng perang Piso ng Pilipinas?',
+                            options: ['₱', '$', '€', '¥'],
+                            answer: '₱'
+                        },
+                        {
+                            type: 'money',
+                            question: 'Mayroon kang dalawang ₱5 barya. Magkano lahat ito?',
+                            visual: '🪙 ₱5 + 🪙 ₱5',
+                            options: ['₱5', '₱10', '₱15', '₱20'],
+                            answer: '₱10'
+                        },
+                        {
+                            type: 'money',
+                            question: 'Magkano ang halaga ng limang ₱1 barya?',
+                            options: ['₱1', '₱3', '₱5', '₱10'],
+                            answer: '₱5'
+                        },
+                        {
+                            type: 'money',
+                            question: 'Alin sa mga barya ang may pinakamalaking halaga?',
+                            options: ['₱1', '₱5', '₱10', '₱20'],
+                            answer: '₱20'
+                        },
+                        {
+                            type: 'money',
+                            question: 'Pumili ng tamang barya para makabili ng kendi na nagkakahalaga ng ₱1.',
+                            options: ['₱1', '₱5', '₱10', '₱20'],
+                            answer: '₱1'
+                        },
+                        {
+                            type: 'money',
+                            question: 'Mayroon kang ₱10 at bumili ka ng pan de sal na ₱4. Magkano ang sukli mo?',
+                            options: ['₱4', '₱5', '₱6', '₱7'],
+                            answer: '₱6'
+                        }
+                    ]
+                },
+                {
+                    id: 'm6',
+                    title: 'Pagbasa ng Oras',
+                    sub: 'Pagtingin sa Relo',
+                    icon: '🕒',
+                    questions: [
+                        {
+                            type: 'time',
+                            question: 'Anong oras ang ipinapakita ng relo kung ang mahabang kamay ay nasa 12 at maikli sa 3?',
+                            visual: '🕒 Ala-tres (3:00)',
+                            options: ['Ala-una', 'Alas-dos', 'Ala-tres', 'Alas-kwatro'],
+                            answer: 'Ala-tres'
+                        },
+                        {
+                            type: 'time',
+                            question: 'Anong oras ang kainan sa tanghali?',
+                            visual: '🕛 Alas-dose (12:00)',
+                            options: ['Alas-otso', 'Alas-diyes', 'Alas-dose', 'Alas-singko'],
+                            answer: 'Alas-dose'
+                        },
+                        {
+                            type: 'time',
+                            question: 'Saan nakaturo ang mahabang kamay ng relo kapag eksaktong oras?',
+                            options: ['Nasa 12', 'Nasa 6', 'Nasa 3', 'Nasa 9'],
+                            answer: 'Nasa 12'
+                        },
+                        {
+                            type: 'time',
+                            question: 'Maikling kamay ay nasa 7, mahabang kamay ay nasa 12. Anong oras na?',
+                            options: ['Alas-sais', 'Alas-syete', 'Alas-otso', 'Alas-nuebe'],
+                            answer: 'Alas-syete'
+                        },
+                        {
+                            type: 'time',
+                            question: 'Anong oras karaniwang gumigising para pumasok sa paaralan sa umaga?',
+                            options: ['Alas-sais ng umaga', 'Alas-dose ng gabi', 'Alas-tres ng hapon'],
+                            answer: 'Alas-sais ng umaga'
+                        },
+                        {
+                            type: 'time',
+                            question: 'Maikling kamay ay nasa 1, mahabang kamay ay nasa 12. Anong oras ito?',
+                            options: ['Ala-una', 'Alas-dos', 'Ala-tres', 'Alas-kwatro'],
+                            answer: 'Ala-una'
+                        },
+                        {
+                            type: 'time',
+                            question: 'Ilang oras mayroon sa isang buong araw?',
+                            options: ['12 oras', '24 oras', '60 oras', '7 oras'],
+                            answer: '24 oras'
+                        },
+                        {
+                            type: 'time',
+                            question: 'Ano ang tinutukoy ng maikling kamay sa orasan?',
+                            options: ['Oras', 'Minit', 'Segundo'],
+                            answer: 'Oras'
+                        }
+                    ]
+                },
+                {
+                    id: 'm7',
+                    title: 'Paghahambing ng Numero',
+                    sub: 'Mas Marami at Mas Kaunti',
+                    icon: '⚖️',
+                    questions: [
+                        {
+                            type: 'compare',
+                            question: 'Aling numero ang MAS MALAKI? 8 o 5?',
+                            options: ['8', '5', 'Pareho'],
+                            answer: '8'
+                        },
+                        {
+                            type: 'compare',
+                            question: 'Alin ang MAS KAUNTI? 3 o 7?',
+                            options: ['3', '7', 'Pareho'],
+                            answer: '3'
+                        },
+                        {
+                            type: 'compare',
+                            question: 'Paghambingin ang 10 at 10. Ano ang tamang salita?',
+                            options: ['Mas malaki', 'Mas kaunti', 'Magkapareho'],
+                            answer: 'Magkapareho'
+                        },
+                        {
+                            type: 'compare',
+                            question: 'Aling numero ang MAS MALIIT? 2 o 9?',
+                            options: ['2', '9', 'Pareho'],
+                            answer: '2'
+                        },
+                        {
+                            type: 'compare',
+                            question: 'Alin sa mga ito ang MAS MARAMI sa 6?',
+                            options: ['4', '5', '9', '2'],
+                            answer: '9'
+                        },
+                        {
+                            type: 'compare',
+                            question: 'Sino ang may mas maraming kendi? Si Ana (7 kendi) o si Ben (4 na kendi)?',
+                            options: ['Si Ana', 'Si Ben', 'Magkapareho'],
+                            answer: 'Si Ana'
+                        },
+                        {
+                            type: 'compare',
+                            question: 'Alin sa mga numero ang PINAKAMALAKI: 3, 6, 1?',
+                            options: ['3', '6', '1'],
+                            answer: '6'
+                        },
+                        {
+                            type: 'compare',
+                            question: 'Alin sa mga numero ang PINAKAMALIIT: 10, 4, 8?',
+                            options: ['10', '4', '8'],
+                            answer: '4'
+                        }
+                    ]
+                }
+            ],
+            filipino: [
+                {
+                    id: 'f1',
+                    title: 'Tunog ng mga Letra (A-Z)',
+                    sub: 'Simulang Tunog ng Letra',
+                    icon: '🔤',
+                    questions: [
+                        {
+                            type: 'phonics',
+                            question: 'Aling salita ang nagsisimula sa tunog ng letrang "A" (Ah)?',
+                            visual: '🔤 Letrang A',
+                            options: ['Saging', 'Aso', 'Pusa', 'Manok'],
+                            answer: 'Aso'
+                        },
+                        {
+                            type: 'phonics',
+                            question: 'Ano ang simulang letra ng Mansanas?',
+                            visual: '🍎 Mansanas',
+                            options: ['A', 'B', 'M', 'S'],
+                            answer: 'M'
+                        },
+                        {
+                            type: 'phonics',
+                            question: 'Aling salita ang nagsisimula sa letrang "B"?',
+                            options: ['Bangka', 'Araw', 'Isda', 'Ulan'],
+                            answer: 'Bangka'
+                        },
+                        {
+                            type: 'phonics',
+                            question: 'Ano ang simulang letra ng salitang "Pusa"?',
+                            options: ['P', 'S', 'T', 'K'],
+                            answer: 'P'
+                        },
+                        {
+                            type: 'phonics',
+                            question: 'Aling salita ang nagsisimula sa letrang "S"?',
+                            options: ['Sapatos', 'Bola', 'Mesa', 'Dahon'],
+                            answer: 'Sapatos'
+                        },
+                        {
+                            type: 'phonics',
+                            question: 'Ano ang simulang letra ng salitang "Ibon"?',
+                            options: ['A', 'E', 'I', 'O'],
+                            answer: 'I'
+                        },
+                        {
+                            type: 'phonics',
+                            question: 'Aling salita ang may simulang letrang "K"?',
+                            options: ['Kambing', 'Lapis', 'Gatas', 'Relo'],
+                            answer: 'Kambing'
+                        },
+                        {
+                            type: 'phonics',
+                            question: 'Ano ang simulang letra ng salitang "Araw"?',
+                            options: ['A', 'E', 'I', 'U'],
+                            answer: 'A'
+                        }
+                    ]
+                },
+                {
+                    id: 'f2',
+                    title: 'Mga Salitang Madalas Basahin',
+                    sub: 'Pangunahing Salita sa Pagbasa',
+                    icon: '📖',
+                    questions: [
+                        {
+                            type: 'sight',
+                            question: 'Kumpletuhin ang pangungusap: "___ pusa ay mabait."',
+                            visual: '🐱',
+                            options: ['Ang', 'Tatakbo', 'Tatalon', 'Malaki'],
+                            answer: 'Ang'
+                        },
+                        {
+                            type: 'sight',
+                            question: 'Aling salita ang nangangahulugang Tumingin o Nakikita?',
+                            visual: '👁️',
+                            options: ['ARAW', 'MAKITA', 'UPO', 'MALUNGKOT'],
+                            answer: 'MAKITA'
+                        },
+                        {
+                            type: 'sight',
+                            question: 'Kumpletuhin: "Pumunta kami ___ paaralan."',
+                            options: ['sa', 'ang', 'na', 'mo'],
+                            answer: 'sa'
+                        },
+                        {
+                            type: 'sight',
+                            question: 'Aling salita ang ginagamit sa pagtuturo ng bagay na malapit sa iyo?',
+                            options: ['Ito', 'Doon', 'Atin', 'Kanya'],
+                            answer: 'Ito'
+                        },
+                        {
+                            type: 'sight',
+                            question: 'Kumpletuhin: "Mabait ___ bata."',
+                            options: ['ang', 'sa', 'at', 'ng'],
+                            answer: 'ang'
+                        },
+                        {
+                            type: 'sight',
+                            question: 'Aling salita ang nag-uugnay sa dalawang bagay? halimbawa: "Aso ___ Pusa"',
+                            options: ['at', 'sa', 'ng', 'ba'],
+                            answer: 'at'
+                        },
+                        {
+                            type: 'sight',
+                            question: 'Kumpletuhin: "Sino ang kasama ___?"',
+                            options: ['mo', 'sa', 'ang', 'at'],
+                            answer: 'mo'
+                        },
+                        {
+                            type: 'sight',
+                            question: 'Aling salita ang nangangahulugang "Bigyan"?',
+                            options: ['Bigay', 'Talon', 'Takbo', 'Sulat'],
+                            answer: 'Bigay'
+                        }
+                    ]
+                },
+                {
+                    id: 'f3',
+                    title: 'Pangngalan at Pandiwa',
+                    sub: 'Pangalan at Kilos',
+                    icon: '🏃',
+                    questions: [
+                        {
+                            type: 'action',
+                            question: 'Alin sa mga ito ang salitang KILOS o Pandiwa (ginagawa)?',
+                            visual: '🏃‍♂️ Tumatakbo',
+                            options: ['Lamesa', 'Tumatakbo', 'Lapis', 'Bahay'],
+                            answer: 'Tumatakbo'
+                        },
+                        {
+                            type: 'noun',
+                            question: 'Alin sa mga ito ang PANGNGALAN (Pangalan ng Lugar)?',
+                            visual: '🏫 Paaralan',
+                            options: ['Tatalon', 'Kakanta', 'Paaralan', 'Lalipad'],
+                            answer: 'Paaralan'
+                        },
+                        {
+                            type: 'action',
+                            question: 'Alin ang salitang kilos na ginagawa ng ibon?',
+                            options: ['Lumilipad', 'Sapatos', 'Lamesa', 'Aklat'],
+                            answer: 'Lumilipad'
+                        },
+                        {
+                            type: 'noun',
+                            question: 'Alin sa mga ito ang pangngalan para sa TAO?',
+                            options: ['Guro', 'Sumasayaw', 'Mabilis', 'Kumakain'],
+                            answer: 'Guro'
+                        },
+                        {
+                            type: 'action',
+                            question: 'Ano ang ginagawa ng bata kapag may hawak na lapis at papel?',
+                            options: ['Nagsusulat', 'Tumatakbo', 'Natutulog', 'Lumalangoy'],
+                            answer: 'Nagsusulat'
+                        },
+                        {
+                            type: 'noun',
+                            question: 'Alin sa mga ito ang pangngalan para sa BAGAY?',
+                            options: ['Payong', 'Umiiyak', 'Mabait', 'Tumatalon'],
+                            answer: 'Payong'
+                        },
+                        {
+                            type: 'action',
+                            question: 'Ano ang ginagawa ng isda sa tubig?',
+                            options: ['Lumalangoy', 'Nagsasalita', 'Tumatakbo', 'Kumakanta'],
+                            answer: 'Lumalangoy'
+                        },
+                        {
+                            type: 'noun',
+                            question: 'Alin sa mga ito ang pangngalan para sa HAYOP?',
+                            options: ['Kalabaw', 'Kumakain', 'Masaya', 'Mabilis'],
+                            answer: 'Kalabaw'
+                        }
+                    ]
+                },
+                {
+                    id: 'f4',
+                    title: 'Pagbasa ng Maikling Salita',
+                    sub: 'Pusa, Aso, Araw, Lapis',
+                    icon: '🐱',
+                    questions: [
+                        {
+                            type: 'cvc',
+                            question: 'Basahin ang salita: P - U - S - A. Anong hayop ito?',
+                            visual: '🐱 P - U - S - A',
+                            options: ['Aso', 'Pusa', 'Manok', 'Baboy'],
+                            answer: 'Pusa'
+                        },
+                        {
+                            type: 'cvc',
+                            question: 'Anong letra ang kulang sa: A _ O?',
+                            visual: '🐶 A _ O',
+                            options: ['S', 'E', 'I', 'U'],
+                            answer: 'S'
+                        },
+                        {
+                            type: 'cvc',
+                            question: 'Basahin ang salita: M - A - S - A - Y - A. Ano ang kahulugan nito?',
+                            options: ['Masaya', 'Malungkot', 'Galit', 'Takot'],
+                            answer: 'Masaya'
+                        },
+                        {
+                            type: 'cvc',
+                            question: 'Anong letra ang kulang sa: M - A - N - G - G - _ ?',
+                            options: ['A', 'E', 'I', 'O'],
+                            answer: 'A'
+                        },
+                        {
+                            type: 'cvc',
+                            question: 'Basahin ang salita: B - A - H - A - Y. Ano ito?',
+                            options: ['Tirahan o Bahay', 'Kotse', 'Sapatos', 'Dahon'],
+                            answer: 'Tirahan o Bahay'
+                        },
+                        {
+                            type: 'cvc',
+                            question: 'Anong letra ang kulang sa: D - Y - I - P - N - _ ?',
+                            options: ['I', 'A', 'U', 'O'],
+                            answer: 'I'
+                        },
+                        {
+                            type: 'cvc',
+                            question: 'Basahin: B - O - L - A. Ano ang ginagamit sa paglalaro?',
+                            options: ['Bola', 'Lapis', 'Mesa', 'Papel'],
+                            answer: 'Bola'
+                        },
+                        {
+                            type: 'cvc',
+                            question: 'Anong salita ang mabubuo kapag pinagsama ang: T - U - B - I - G?',
+                            options: ['Tubig', 'Hangin', 'Apoy', 'Lupa'],
+                            answer: 'Tubig'
+                        }
+                    ]
+                },
+                {
+                    id: 'f5',
+                    title: 'Isa at Maraming Bagay',
+                    sub: 'Pang-isahan at Maramihan',
+                    icon: '🍎',
+                    questions: [
+                        {
+                            type: 'plural',
+                            question: 'Ano ang tawag kapag MARAMING mansanas?',
+                            visual: '🍎 🍎 🍎',
+                            options: ['Isang Mansanas', 'Mga Mansanas', 'Mansanas Lang'],
+                            answer: 'Mga Mansanas'
+                        },
+                        {
+                            type: 'plural',
+                            question: 'Aling salita ang tumutukoy sa ISANG hayop lamang?',
+                            visual: '🐶',
+                            options: ['Mga Aso', 'Isang Aso', 'Maraming Aso'],
+                            answer: 'Isang Aso'
+                        },
+                        {
+                            type: 'plural',
+                            question: 'Ano ang idinadagdag sa unahan ng salita sa Filipino para ipakita na marami ito?',
+                            options: ['Mga', 'Ang', 'Sa', 'Si'],
+                            answer: 'Mga'
+                        },
+                        {
+                            type: 'plural',
+                            question: 'Alin ang tumutukoy sa MARAMING bata?',
+                            options: ['Mga bata', 'Isang bata', 'Ang bata'],
+                            answer: 'Mga bata'
+                        },
+                        {
+                            type: 'plural',
+                            question: 'Mayroong ISANG ibon sa puno. Alin ang tamang tawag?',
+                            options: ['Isang ibon', 'Mga ibon', 'Maraming ibon'],
+                            answer: 'Isang ibon'
+                        },
+                        {
+                            type: 'plural',
+                            question: 'Alin ang PANG-ISAHAN (isa lang)?',
+                            options: ['Isang lapis', 'Mga lapis', 'Maraming lapis'],
+                            answer: 'Isang lapis'
+                        },
+                        {
+                            type: 'plural',
+                            question: 'Alin ang MARAMIHAN (marami)?',
+                            options: ['Mga bulaklak', 'Isang bulaklak', 'Ang bulaklak'],
+                            answer: 'Mga bulaklak'
+                        },
+                        {
+                            type: 'plural',
+                            question: 'Kapag sinabing "Mga dyipni", ilan ang dyipni?',
+                            options: ['Marami', 'Isa lang', 'Wala'],
+                            answer: 'Marami'
+                        }
+                    ]
+                },
+                {
+                    id: 'f6',
+                    title: 'Payak na Pangungusap',
+                    sub: 'Maikling Kwento at Pangungusap',
+                    icon: '📝',
+                    questions: [
+                        {
+                            type: 'sentence',
+                            question: 'Basahin: "Mainit ang araw." Ano ang mainit?',
+                            visual: '☀️ "Mainit ang araw."',
+                            options: ['Ang buwan', 'Ang araw', 'Ang ulan'],
+                            answer: 'Ang araw'
+                        },
+                        {
+                            type: 'sentence',
+                            question: 'Alin ang tamang pangungusap?',
+                            options: ['Mahal ko ang pagbabasa.', 'Pagbabasa mahal ko.', 'Ko mahal pagbabasa.'],
+                            answer: 'Mahal ko ang pagbabasa.'
+                        },
+                        {
+                            type: 'sentence',
+                            question: 'Basahin: "Mabait ang pusa." Ano ang ugali ng pusa?',
+                            options: ['Mabait', 'Galit', 'Mabilis'],
+                            answer: 'Mabait'
+                        },
+                        {
+                            type: 'sentence',
+                            question: 'Basahin: "Masaya ang mga bata." Sino ang masaya?',
+                            options: ['Ang mga bata', 'Ang mga aso', 'Ang mga ibon'],
+                            answer: 'Ang mga bata'
+                        },
+                        {
+                            type: 'sentence',
+                            question: 'Ano ang inilalagay sa dulo ng isang payak na pangungusap?',
+                            options: ['Tuldok (.)', 'Kwit (,)', 'Paresukat'],
+                            answer: 'Tuldok (.)'
+                        },
+                        {
+                            type: 'sentence',
+                            question: 'Basahin: "Matamis ang mangga." Ano ang matamis?',
+                            options: ['Ang mangga', 'Ang asin', 'Ang sabon'],
+                            answer: 'Ang mangga'
+                        },
+                        {
+                            type: 'sentence',
+                            question: 'Alin ang maayos na pangungusap?',
+                            options: ['Pumupunta ako sa paaralan.', 'Paaralan sa ako pumupunta.', 'Ako paaralan pumupunta.'],
+                            answer: 'Pumupunta ako sa paaralan.'
+                        },
+                        {
+                            type: 'sentence',
+                            question: 'Basahin: "Malaki ang bahay." Ano ang katangian ng bahay?',
+                            options: ['Malaki', 'Maliit', 'Mabilis'],
+                            answer: 'Malaki'
+                        }
+                    ]
+                },
+                {
+                    id: 'f7',
+                    title: 'Magalang na Pagbati',
+                    sub: 'Mga Magalang na Salita',
+                    icon: '👋',
+                    questions: [
+                        {
+                            type: 'greeting',
+                            question: 'Ano ang sinasabi sa umaga kapag bumabati?',
+                            visual: '🌅 Umaga',
+                            options: ['Magandang Gabi', 'Magandang Umaga', 'Magandang Hapon', 'Paalam'],
+                            answer: 'Magandang Umaga'
+                        },
+                        {
+                            type: 'greeting',
+                            question: 'Ano ang magalang na sinasabi kapag nakatanggap ng regalo?',
+                            visual: '🎁 Regalo',
+                            options: ['Patawad', 'Salamat Po', 'Pakiusap', 'Makikiraan'],
+                            answer: 'Salamat Po'
+                        },
+                        {
+                            type: 'greeting',
+                            question: 'Ano ang sinasabi kapag nakasakit ka nang hindi sinasadya?',
+                            options: ['Patawad po', 'Salamat po', 'Walang anuman', 'Magandang hapon'],
+                            answer: 'Patawad po'
+                        },
+                        {
+                            type: 'greeting',
+                            question: 'Ano ang sinasabi kapag aalis na sa hapon o gabi?',
+                            options: ['Paalam po', 'Magandang umaga', 'Salamat po'],
+                            answer: 'Paalam po'
+                        },
+                        {
+                            type: 'greeting',
+                            question: 'Ano ang magalang na salitang idinadagdag sa dulo ng pangungusap sa nakatatanda?',
+                            options: ['Po at Opo', 'Oo at Hindi', 'Sige at Halika'],
+                            answer: 'Po at Opo'
+                        },
+                        {
+                            type: 'greeting',
+                            question: 'Ano ang sinasabi kapag may nagpasalamat sa iyo?',
+                            options: ['Walang anuman po', 'Patawad po', 'Salamat po'],
+                            answer: 'Walang anuman po'
+                        },
+                        {
+                            type: 'greeting',
+                            question: 'Ano ang sinasabi sa hapon kapag sumisikat pa ang araw?',
+                            options: ['Magandang Hapon', 'Magandang Umaga', 'Magandang Gabi'],
+                            answer: 'Magandang Hapon'
+                        },
+                        {
+                            type: 'greeting',
+                            question: 'Ano ang sinasabi kapag dadaan sa pagitan ng dalawang taong nag-uusap?',
+                            options: ['Makikiraan po', 'Salamat po', 'Magandang umaga po'],
+                            answer: 'Makikiraan po'
+                        }
+                    ]
+                }
+            ]
+        };
+
+        // --- BADGES DATA (100% FILIPINO TRANSLATED) ---
+        const badgesData = [
+            { id: 'b1', name: 'Bituin sa Matematika', desc: 'Makatanggap ng 3 bituin sa Matematika', reqStars: 3, icon: '🧮' },
+            { id: 'b2', name: 'Mahusay Magbasa', desc: 'Makatanggap ng 3 bituin sa Wikang Filipino', reqStars: 3, icon: '📚' },
+            { id: 'b3', name: 'Bida sa Dyipni', desc: 'Makatanggap ng 6 na bituin sa mga aralin', reqStars: 6, icon: '🚍' },
+            { id: 'b4', name: 'Magaling na Mag-aaral!', desc: 'Makatanggap ng 10 bituin sa lahat ng paksa', reqStars: 10, icon: '🏆' },
+            { id: 'b5', name: 'Kampyon sa caffee', desc: 'Makatanggap ng 14 bituin para matapos ang caffee', reqStars: 14, icon: '👑' }
+        ];
+
+        // --- SPEECH SYNTHESIS (VOICE-OVER TTS) OPTIMIZATIONS ---
+        let availableVoices = [];
+
+        // Load voices dynamically when browser initializes voices
+        function initVoices() {
+            if ('speechSynthesis' in window) {
+                availableVoices = window.speechSynthesis.getVoices();
+            }
+        }
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = initVoices;
+            initVoices();
+        }
+
+        function changeVoiceMode(mode) {
+            voiceMode = mode;
+            if (ttsEnabled) {
+                speakText(mode === 'auto' ? 'Pumili ng Awtomatikong Boses sa Tagalog' : 'Pumili ng Boses ng System');
+            }
+        }
+
+        // Detect if text contains predominantly Tagalog/Filipino words
+        function isFilipinoText(text) {
+            if (!text) return false;
+            const filipinoKeywords = [
+                'maligayang', 'pagdating', 'mga', 'sa', 'ang', 'na', 'ng', 'mo', 'ito', 'ilan', 'lahat',
+                'kapag', 'pinagsama', 'natira', 'bawasan', 'kinain', 'mangga', 'dyipni',
+                'karangalan', 'magaling', 'subukan', 'uli', 'hugis', 'bilog', 'oras',
+                'relo', 'piraso', 'barya', 'piso', 'pandiwa', 'pangngalan', 'tumingin',
+                'nakikita', 'ginagawa', 'salakot', 'magandang', 'umaga', 'gabay', 'magulang', 'guro',
+                'marami', 'kaunti', 'pareho', 'dagdag', 'bawas', 'balikan', 'wikang', 'matematika', 'pagbibilang', 'pagdaragdag', 'pagbabawas', 'patlang'
+            ];
+            const lower = text.toLowerCase();
+            return filipinoKeywords.some(word => lower.includes(word));
+        }
+
+        // Native Phonetic Transliteration Engine for Filipino words when read by English voices
+        function convertFilipinoToPhonetic(text) {
+            if (!text) return '';
+            let map = [
+                // Fix short Tagalog particle words from being spelled out letter-by-letter
+                [/\bsa\b/gi, 'sah'],
+                [/\bSa\b/gi, 'Sah'],
+                [/\bang\b/gi, 'ahng'],
+                [/\bAng\b/gi, 'Ahng'],
+                [/\bna\b/gi, 'nah'],
+                [/\bNa\b/gi, 'Nah'],
+                [/\bko\b/gi, 'koh'],
+                [/\bKo\b/gi, 'Koh'],
+                [/\bmo\b/gi, 'moh'],
+                [/\bMo\b/gi, 'Moh'],
+                [/\bito\b/gi, 'ee-toh'],
+                [/\bIto\b/gi, 'Ee-toh'],
+
+                // Explicit phonetic breakdown for Wikang Ingles and Patlang
+                [/\bWikang Ingles\b/gi, 'Wee-kahng Ing-glehs'],
+                [/\bWikang\b/gi, 'Wee-kahng'],
+                [/\bIngles\b/gi, 'Ing-glehs'],
+                [/\bpatlang\b/gi, 'put-lung'],
+                [/\bPatlang\b/gi, 'Put-lung'],
+
+                // Convert numbers to full Filipino words in Filipino context
+                [/\b10\b/g, 'sampoo'],
+                [/\b1\b/g, 'eesah'],
+                [/\b2\b/g, 'dalawa'],
+                [/\b3\b/g, 'tatlo'],
+                [/\b4\b/g, 'ahpat'],
+                [/\b5\b/g, 'leemah'],
+                [/\b6\b/g, 'aanam'],
+                [/\b7\b/g, 'peeto'],
+                [/\b8\b/g, 'walo'],
+                [/\b9\b/g, 'siyam'],
+                [/\b20\b/g, 'dalawampo'],
+
+                [/\bMaligayang\b/gi, 'Mah-lee-gah-yung'],
+                [/\bPagdating\b/gi, 'Puhg-duht-eeng'],
+                [/\bdyipni\b/gi, 'jeep-nee'],
+                [/\bdyipneys\b/gi, 'jeep-neys'],
+                [/\bmangga\b/gi, 'mung-gah'],
+                [/\bMagaling\b/gi, 'Mah-gah-leeng'],
+                [/\bSubukan\b/gi, 'Soo-boo-kun'],
+                [/\buli\b/gi, 'oo-lee'],
+                [/\bPagbibilang\b/gi, 'Puhg-bee-bee-lung'],
+                [/\bPagdaragdag\b/gi, 'Puhg-dah-ruhg-duhg'],
+                [/\bPagbabawas\b/gi, 'Puhg-bah-bah-was'],
+                [/\bpinagsama\b/gi, 'pee-nahg-sah-mah'],
+                [/\bnatira\b/gi, 'nah-tee-rah'],
+                [/\bbawasan\b/gi, 'bah-wah-sun'],
+                [/\bkinain\b/gi, 'kee-nah-in'],
+                [/\bMga\b/gi, 'Muh-ngah'],
+                [/\bmga\b/gi, 'muh-ngah'],
+                [/\bng\b/gi, 'nung'],
+                [/\bNg\b/gi, 'Nung'],
+                [/\bBilog\b/gi, 'Bee-log'],
+                [/\bHugis\b/gi, 'Hoo-gees'],
+                [/\bPadron\b/gi, 'Pahd-ron'],
+                [/\bOras\b/gi, 'Oh-rus'],
+                [/\bRelo\b/gi, 'Reh-loh'],
+                [/\bBarya\b/gi, 'Bar-yah'],
+                [/\bPera\b/gi, 'Peh-rah'],
+                [/\bPiso\b/gi, 'Pee-soh'],
+                [/\bPaghahambing\b/gi, 'Puhg-hah-hum-beeng'],
+                [/\bMarami\b/gi, 'Mah-rah-mee'],
+                [/\bKaunti\b/gi, 'Kah-oon-tee'],
+                [/\bPareho\b/gi, 'Pah-reh-hoh'],
+                [/\bPangngalan\b/gi, 'Puhng-ngah-lun'],
+                [/\bPandiwa\b/gi, 'Puhn-dee-wah'],
+                [/\bTumingin\b/gi, 'Too-mee-ngeen'],
+                [/\bNakikita\b/gi, 'Nah-kee-kee-tah'],
+                [/\bGinagawa\b/gi, 'Gee-nah-gah-wah'],
+                [/\bSalakot\b/gi, 'Sah-lah-kot'],
+                [/\bMagandang\b/gi, 'Mah-gun-dung'],
+                [/\bUmaga\b/gi, 'Oo-mah-gah'],
+                [/\bGabay\b/gi, 'Gah-bye'],
+                [/\bMagulang\b/gi, 'Mah-goo-lung'],
+                [/\bGuro\b/gi, 'Goo-roh'],
+                [/\bKarangalan\b/gi, 'Kah-ruhng-ah-lun'],
+                [/\bIlan\b/gi, 'Ee-lun'],
+                [/\blahat\b/gi, 'lah-hut'],
+                [/\bkapag\b/gi, 'kah-pahg'],
+                [/\bMatematika\b/gi, 'Mah-teh-mah-tee-kah']
+            ];
+
+            let result = text;
+            map.forEach(([regex, phonetic]) => {
+                result = result.replace(regex, phonetic);
+            });
+            return result;
+        }
+
+        // --- GLOBAL ACCESSIBILITY & AUDIO FUNCTIONS ---
+        function cleanTextForTTS(text) {
+            if (!text) return '';
+            let cleaned = text;
+
+            // STRIP OUT ANYTHING INSIDE BRACKETS AND PARENTHESES FIRST FOR ALL TEXTS
+            cleaned = cleaned.replace(/\s*\([\s\S]*?\)/g, '');
+            cleaned = cleaned.replace(/\s*\[[\s\S]*?\]/g, '');
+
+            const isFil = isFilipinoText(cleaned) || isFilipinoText(text);
+
+            cleaned = cleaned
+                // Replace underscore (_) or triple underscores (___) with 'patlang' in Filipino or 'blank' in English
+                .replace(/_+/g, isFil ? ' patlang ' : ' blank ')
+
+                // Explicitly format "Wikang Ingles" with commas to enforce TTS phrase boundary
+                .replace(/\bWikang Ingles\b/gi, 'Wikang, Ingles,')
+
+                // Normalize currency & math operators cleanly
+                .replace(/₱\s*(\d+)/g, isFil ? '$1 piso' : '$1 pesos')
+                .replace(/₱/g, isFil ? ' piso ' : ' pesos ')
+                .replace(/\+/g, isFil ? ' dagdagan ng ' : ' plus ')
+                .replace(/-/g, isFil ? ' bawasan ng ' : ' minus ')
+                .replace(/=/g, isFil ? ' ay ' : ' equals ')
+                .replace(/(\d+)\s*\+\s*(\d+)/g, isFil ? '$1 dagdagan ng $2' : '$1 plus $2')
+                .replace(/(\d+)\s*-\s*(\d+)/g, isFil ? '$1 bawasan ng $2' : '$1 minus $2')
+                
+                // Prevent short 2-letter/3-letter Filipino words from being parsed as individual spelled letters
+                .replace(/\bsa\b/gi, 'sah')
+                .replace(/\bang\b/gi, 'ahng')
+                .replace(/\bna\b/gi, 'nah')
+                .replace(/\bmo\b/gi, 'moh')
+                .replace(/\bito\b/gi, 'ee-toh')
+
+                // Convert hyphens between letter sounds (e.g. "C - A - T") to clear blended text so it says "cat"
+                .replace(/([a-zA-Z])\s*-\s*([a-zA-Z])\s*-\s*([a-zA-Z])/g, '$1$2$3')
+                
+                // Expand short abbreviations to natural spoken forms
+                .replace(/\bCVC\b/g, 'consonant vowel consonant')
+                .replace(/\b(\d+):00\b/g, "$1 o'clock")
+                
+                // Strip emoji symbols and extra punctuation
+                .replace(/[\(\)\[\]\{\}❌🥭🚍⭐🍎🪙🕒🕛⚖️🔤📖🏃‍♂️🏫🐱🐶☀️🌅🎁🏆👑❓]/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim();
+
+            return cleaned;
+        }
+
+        function speakText(text, targetElementId = null) {
+            if (!ttsEnabled || !text) return;
+
+            window.speechSynthesis.cancel();
+
+            let cleanStr = cleanTextForTTS(text);
+            if (!cleanStr) return;
+
+            const isFil = isFilipinoText(text) || isFilipinoText(cleanStr);
+
+            if (availableVoices.length === 0) {
+                availableVoices = window.speechSynthesis.getVoices();
+            }
+
+            let preferredVoice = null;
+
+            if (isFil) {
+                // Try to find a dedicated Filipino / Tagalog voice first
+                preferredVoice = availableVoices.find(v => 
+                    v.lang.startsWith('tl') || v.lang.startsWith('fil') || v.name.toLowerCase().includes('filipino') || v.name.toLowerCase().includes('tagalog')
+                );
+            }
+
+            // Fallback to high-quality English voice if native Tagalog voice isn't present
+            if (!preferredVoice) {
+                preferredVoice = availableVoices.find(v => 
+                    v.lang.startsWith('en') &&
+                    (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Samantha') || v.name.includes('Zira') || v.name.includes('Jenny'))
+                ) || availableVoices.find(v => v.lang.startsWith('en')) || availableVoices[0];
+            }
+
+            // Always phoneticize Filipino text when using English fallback voices so it doesn't spell words or glitch
+            if (isFil) {
+                cleanStr = convertFilipinoToPhonetic(cleanStr);
+            }
+
+            const utterance = new SpeechSynthesisUtterance(cleanStr);
+            
+            // Lock utterance language to prevent sudden switching mid-sentence
+            utterance.rate = isFil ? 0.78 : 0.88;
+            utterance.pitch = isFil ? 0.95 : 1.0;
+            utterance.lang = (isFil && preferredVoice && (preferredVoice.lang.startsWith('tl') || preferredVoice.lang.startsWith('fil'))) ? 'tl-PH' : 'en-US';
+
+            if (preferredVoice) {
+                utterance.voice = preferredVoice;
+            }
+
+            let elementToHighlight = targetElementId ? document.getElementById(targetElementId) : null;
+            
+            utterance.onstart = () => {
+                if (elementToHighlight) {
+                    elementToHighlight.classList.add('speech-active');
+                }
+            };
+
+            utterance.onend = () => {
+                if (elementToHighlight) {
+                    elementToHighlight.classList.remove('speech-active');
+                }
+            };
+
+            utterance.onerror = () => {
+                if (elementToHighlight) {
+                    elementToHighlight.classList.remove('speech-active');
+                }
+            };
+
+            setTimeout(() => {
+                window.speechSynthesis.speak(utterance);
+            }, 100);
+        }
+
+        function toggleDyslexicMode() {
+            dyslexicModeActive = !dyslexicModeActive;
+            const body = document.body;
+            const btn = document.getElementById('dyslexic-toggle-btn');
+            
+            if (dyslexicModeActive) {
+                body.classList.add('dyslexic-mode');
+                btn.classList.add('bg-caramel', 'text-white');
+                speakText('Bukas na ang letrang malinaw para sa mas madaling pagbasa');
+            } else {
+                body.classList.remove('dyslexic-mode');
+                btn.classList.remove('bg-caramel', 'text-white');
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // --- NAVIGATION & UI SECTION SWITCHING ---
+        function showSection(sectionId) {
+            document.querySelectorAll('main > section').forEach(sec => {
+                sec.classList.add('hidden');
+            });
+
+            const targetSection = document.getElementById('sec-' + sectionId);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+            }
+
+            if (sectionId === 'learning-path') {
+                renderLearningPathMap();
+            } else if (sectionId === 'badges') {
+                renderBadgesGrid();
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function switchSubjectPath(subject) {
+            currentSubject = subject;
+            
+            const mathTab = document.getElementById('tab-math');
+            const filipinoTab = document.getElementById('tab-filipino');
+            
+            if (subject === 'math') {
+                mathTab.className = 'px-5 py-2 rounded-xl font-heading font-bold text-base transition bg-coffee-500 text-white shadow';
+                if (filipinoTab) filipinoTab.className = 'px-5 py-2 rounded-xl font-heading font-bold text-base transition text-coffee-700 hover:bg-coffee-200';
+            } else {
+                if (filipinoTab) filipinoTab.className = 'px-5 py-2 rounded-xl font-heading font-bold text-base transition bg-coffee-500 text-white shadow';
+                mathTab.className = 'px-5 py-2 rounded-xl font-heading font-bold text-base transition text-coffee-700 hover:bg-coffee-200';
+            }
+
+            showSection('learning-path');
+        }
+
+        // --- RENDER LEARNING PATH MAP NODES ---
+        function renderLearningPathMap() {
+            const wrapper = document.getElementById('nodes-wrapper');
+            const titleEl = document.getElementById('path-title');
+            
+            if (!wrapper) return;
+            
+            wrapper.innerHTML = '';
+            
+            const currentLessons = lessonsData[currentSubject] || [];
+            titleEl.innerText = currentSubject === 'math' ? 'Daanan ng Pagkakatuto sa Matematika' : 'Daanan ng Pagkakatuto sa Wikang Filipino';
+
+            currentLessons.forEach((lesson, idx) => {
+                const isCompleted = completedLessons[currentSubject].includes(lesson.id);
+                const isUnlocked = idx === 0 || completedLessons[currentSubject].includes(currentLessons[idx - 1].id);
+
+                const nodeCard = document.createElement('div');
+                nodeCard.className = 'relative flex items-center justify-center w-full';
+
+                let offsetClass = 'translate-x-0';
+                if (idx % 3 === 1) offsetClass = 'translate-x-8 sm:translate-x-16';
+                if (idx % 3 === 2) offsetClass = '-translate-x-8 sm:-translate-x-16';
+
+                let statusColor = 'bg-coffee-200 border-coffee-400 text-coffee-500';
+                let btnBg = 'bg-coffee-300 text-coffee-600 cursor-not-allowed';
+                let starBadge = '';
+
+                if (isCompleted) {
+                    statusColor = 'bg-matcha border-green-700 text-white shadow-lg';
+                    btnBg = 'bg-coffee-500 text-white hover:bg-coffee-600 card-3d';
+                    starBadge = '<span class="absolute -top-2 -right-2 bg-amber-400 text-white text-xs px-2 py-0.5 rounded-full font-bold border border-amber-600 shadow">⭐ Tapos na</span>';
+                } else if (isUnlocked) {
+                    statusColor = 'bg-caramel border-amber-700 text-white animate-bounce shadow-node-glow';
+                    btnBg = 'btn-game font-bold';
+                    starBadge = '<span class="absolute -top-2 -right-2 bg-caramel text-white text-xs px-2 py-0.5 rounded-full font-bold border border-amber-800 shadow">Laruin!</span>';
+                }
+
+                nodeCard.innerHTML = `
+                    <div class="flex flex-col items-center ${offsetClass} transition-transform duration-300">
+                        <div class="relative">
+                            <button onclick="${isUnlocked ? `startQuiz('${lesson.id}')` : `speakText('Nakatagong aralin. Tapusin muna ang naunang aralin.')`}" 
+                                    class="w-20 h-20 rounded-full border-4 flex items-center justify-center text-3xl font-bold transition-all transform hover:scale-110 ${statusColor}">
+                                ${isCompleted ? '✓' : lesson.icon}
+                            </button>
+                            ${starBadge}
+                        </div>
+                        <div class="mt-2 text-center bg-cream/90 backdrop-blur px-4 py-1.5 rounded-xl border-2 border-coffee-300 shadow-sm max-w-xs">
+                            <h4 class="font-heading font-bold text-coffee-900 text-sm flex items-center justify-center gap-1">
+                                <span>${lesson.title}</span>
+                                <button onclick="speakText('${lesson.title}. ${lesson.sub}')" class="text-coffee-600 hover:text-coffee-800 text-xs ml-1" title="Basahin ang pamagat ng aralin">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                </button>
+                            </h4>
+                            <p class="text-xs text-coffee-600 font-medium">${lesson.sub}</p>
+                        </div>
+                    </div>
+                `;
+
+                wrapper.appendChild(nodeCard);
+            });
+        }
+
+        // --- QUIZ & LESSON INTERACTION ENGINE ---
+        let currentActiveLesson = null;
+        let currentQuestionIdx = 0;
+
+        function startQuiz(lessonId) {
+            const list = lessonsData[currentSubject];
+            currentActiveLesson = list.find(l => l.id === lessonId);
+            if (!currentActiveLesson) return;
+
+            currentQuestionIdx = 0;
+            document.getElementById('quiz-modal').classList.remove('hidden');
+            renderQuizQuestion();
+        }
+
+        function closeQuizModal() {
+            document.getElementById('quiz-modal').classList.add('hidden');
+            window.speechSynthesis.cancel();
+        }
+
+        function renderQuizQuestion() {
+            const q = currentActiveLesson.questions[currentQuestionIdx];
+            const badge = document.getElementById('quiz-subject-badge');
+            const title = document.getElementById('quiz-title');
+            const body = document.getElementById('quiz-body');
+            const feedback = document.getElementById('quiz-feedback');
+            const actionBtn = document.getElementById('quiz-action-btn');
+
+            badge.innerText = currentSubject === 'math' ? 'MATEMATIKA' : 'WIKANG FILIPINO';
+            badge.className = currentSubject === 'math' ? 'bg-caramel text-white text-xs font-bold px-2.5 py-0.5 rounded-full' : 'bg-blue-600 text-white text-xs font-bold px-2.5 py-0.5 rounded-full';
+            
+            title.innerText = `${currentActiveLesson.title} (${currentQuestionIdx + 1}/${currentActiveLesson.questions.length})`;
+            feedback.innerText = '';
+            actionBtn.classList.add('hidden');
+
+            let visualHtml = '';
+            if (q.items) {
+                let itemsListHtml = '';
+                if (q.itemEmojis) {
+                    itemsListHtml = q.itemEmojis.map(emoji => `<span class="text-4xl transform hover:scale-125 transition-transform inline-block">${emoji}</span>`).join(' ');
+                } else {
+                    itemsListHtml = q.items.map(item => `<span class="text-4xl transform hover:scale-125 transition-transform inline-block">${item}</span>`).join(' ');
+                }
+                visualHtml = `<div class="p-4 bg-coffee-100 rounded-2xl border-2 border-coffee-300 flex flex-wrap gap-3 justify-center items-center my-3">${itemsListHtml}</div>`;
+            } else if (q.visual) {
+                visualHtml = `<div class="p-4 bg-coffee-100 rounded-2xl border-2 border-coffee-300 text-2xl font-bold text-center text-coffee-800 my-3">${q.visual}</div>`;
+            }
+
+            const optionsHtml = q.options.map(opt => `
+                <button onclick="checkAnswer('${opt}', '${q.answer}')" class="w-full py-3 px-4 bg-coffee-50 hover:bg-coffee-200 border-2 border-coffee-300 rounded-xl font-heading font-bold text-coffee-900 text-base text-left flex items-center justify-between transition group card-3d">
+                    <span>${opt}</span>
+                </button>
+            `).join('');
+
+            body.innerHTML = `
+                <div class="space-y-3">
+                    <div class="flex items-start justify-between gap-2">
+                        <h4 id="question-text" class="text-xl font-bold text-coffee-900 leading-snug">${q.question}</h4>
+                        <button onclick="speakText('${q.question}', 'question-text')" class="w-9 h-9 bg-coffee-200 hover:bg-coffee-300 text-coffee-800 rounded-full flex items-center justify-center shrink-0 border border-coffee-400" title="Read Question">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                    </div>
+                    ${visualHtml}
+                    <div class="space-y-2.5 pt-2">
+                        ${optionsHtml}
+                    </div>
+                </div>
+            `;
+
+            speakText(q.question, 'question-text');
+        }
+
+        function playSound(type) {
+            if (!('AudioContext' in window || 'webkitAudioContext' in window)) return;
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                if (type === 'correct') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+                    osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1);
+                    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.3);
+                } else {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, ctx.currentTime);
+                    osc.frequency.setValueAtTime(180, ctx.currentTime + 0.1);
+                    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.25);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.25);
+                }
+            } catch (e) {}
+        }
+
+        function checkAnswer(selected, correct) {
+            const feedback = document.getElementById('quiz-feedback');
+            const actionBtn = document.getElementById('quiz-action-btn');
+
+            if (selected === correct) {
+                playSound('correct');
+                feedback.className = 'text-matcha font-bold text-lg flex items-center gap-2';
+                feedback.innerHTML = '<span>🎉 Magaling! Tumpak ang iyong sagot!</span>';
+                speakText('Magaling! Tumpak ang iyong sagot!');
+                
+                actionBtn.classList.remove('hidden');
+                actionBtn.innerHTML = 'Susunod na Tanong <i class="fa-solid fa-arrow-right ml-1"></i>';
+                actionBtn.onclick = () => {
+                    currentQuestionIdx++;
+                    if (currentQuestionIdx < currentActiveLesson.questions.length) {
+                        renderQuizQuestion();
+                    } else {
+                        finishLesson();
+                    }
+                };
+            } else {
+                playSound('wrong');
+                feedback.className = 'text-berry font-bold text-lg flex items-center gap-2';
+                feedback.innerHTML = '<span>❌ Subukan uli!</span>';
+                speakText('Subukan uli!');
+            }
+        }
+
+        function finishLesson() {
+            if (!completedLessons[currentSubject].includes(currentActiveLesson.id)) {
+                completedLessons[currentSubject].push(currentActiveLesson.id);
+                userStars += 1;
+                document.getElementById('global-stars').innerText = userStars;
+            }
+
+            closeQuizModal();
+            renderLearningPathMap();
+            speakText('Napakagaling! Natapos mo ang aralin at nakakuha ka ng isang bituin!');
+        }
+
+        // --- RENDER BADGES GRID ---
+        function renderBadgesGrid() {
+            const grid = document.getElementById('badges-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            badgesData.forEach(b => {
+                const unlocked = userStars >= b.reqStars;
+                const card = document.createElement('div');
+                card.className = `p-5 rounded-3xl border-4 ${unlocked ? 'bg-cream border-coffee-400 shadow-md card-3d' : 'bg-coffee-100 border-coffee-200 opacity-60'} flex items-center gap-4`;
+                
+                card.innerHTML = `
+                    <div class="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl font-bold ${unlocked ? 'bg-amber-100 border-2 border-amber-400 text-amber-700' : 'bg-coffee-200 text-coffee-400'}">
+                        ${b.icon}
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-heading font-bold text-coffee-900 text-base">${b.name}</h4>
+                            <button onclick="speakText('${b.name}. ${b.desc}')" class="text-coffee-600 hover:text-coffee-800 text-xs" title="Basahin ang tungkol sa karangalan">
+                                <i class="fa-solid fa-volume-high"></i>
+                            </button>
+                        </div>
+                        <p class="text-xs text-coffee-600 font-medium">${b.desc}</p>
+                        <span class="inline-block mt-2 text-xs font-bold px-2.5 py-0.5 rounded-full ${unlocked ? 'bg-matcha text-white' : 'bg-coffee-300 text-coffee-700'}">
+                            ${unlocked ? 'Nakuha na ✓' : `Kailangan pa ng ${b.reqStars - userStars} na bituin`}
+                        </span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // --- APP INIT ON PAGE LOAD ---
+        window.onload = function() {
+            showSection('home');
+            initVoices();
+        };
+    </script>
+</body>
+</html>
